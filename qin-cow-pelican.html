@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>秦始皇骑自行车 · 奶牛骑鹈鹕</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#0d1b2a}
+  svg{display:block;width:100vw;height:100vh}
+
+  /* 车轮旋转 */
+  .wheel{transform-box:view-box;animation:spin .7s linear infinite}
+  #wheel-rear{transform-origin:350px 260px}
+  #wheel-front{transform-origin:455px 260px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* 整套上下颠簸 */
+  .stack{animation:bob .38s ease-in-out infinite alternate}
+  @keyframes bob{from{transform:translateY(0)}to{transform:translateY(-7px)}}
+
+  /* 鹈鹕双腿交替 */
+  .leg-a{transform-box:view-box;transform-origin:415px 480px;
+         animation:step .45s ease-in-out infinite alternate}
+  .leg-b{transform-box:view-box;transform-origin:462px 480px;
+         animation:step .45s ease-in-out infinite alternate-reverse}
+  @keyframes step{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}
+
+  /* 云飘过 */
+  .cloud{animation:drift 26s linear infinite}
+  .cloud.b{animation-duration:38s;animation-delay:-9s}
+  .cloud.c{animation-duration:19s;animation-delay:-15s}
+  @keyframes drift{from{transform:translateX(900px)}to{transform:translateX(-400px)}}
+
+  /* 地面速度线 */
+  .speed{animation:slide .8s linear infinite}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-120px)}}
+
+  /* 脚下扬尘 */
+  .dust{transform-box:view-box;transform-origin:420px 540px;
+        animation:puff .9s ease-out infinite}
+  @keyframes puff{
+    0%{opacity:.65;transform:scale(.4) translateX(0)}
+    100%{opacity:0;transform:scale(1.7) translateX(-50px)}
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fd3f4"/>
+      <stop offset="1" stop-color="#ffeedd"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fbf6a"/>
+      <stop offset="1" stop-color="#4f7d3a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== 背景 ===== -->
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="690" cy="88" r="46" fill="#ffe066" opacity=".85"/>
+
+  <g class="cloud"><g fill="#fff" opacity=".85">
+    <ellipse cx="150" cy="110" rx="48" ry="22"/>
+    <ellipse cx="190" cy="100" rx="36" ry="26"/>
+    <ellipse cx="112" cy="118" rx="30" ry="18"/>
+  </g></g>
+  <g class="cloud b"><g fill="#fff" opacity=".7">
+    <ellipse cx="420" cy="70" rx="60" ry="24"/>
+    <ellipse cx="470" cy="58" rx="40" ry="28"/>
+  </g></g>
+  <g class="cloud c"><g fill="#fff" opacity=".6">
+    <ellipse cx="620" cy="170" rx="42" ry="18"/>
+    <ellipse cx="656" cy="162" rx="30" ry="20"/>
+  </g></g>
+
+  <rect y="540" width="800" height="60" fill="url(#ground)"/>
+  <g class="speed">
+    <line x1="0" y1="556" x2="800" y2="556" stroke="#ffffff" stroke-width="4"
+          stroke-dasharray="40 80" opacity=".45"/>
+  </g>
+
+  <!-- ===== 主体（整体颠簸） ===== -->
+  <g class="stack">
+
+    <!-- ========== 鹈鹕（最底层，正在奔跑） ========== -->
+    <g id="pelican">
+      <!-- 尾巴 -->
+      <path d="M330 418 L276 400 L292 448 Z" fill="#e8e8e2" stroke="#c9c9c0" stroke-width="2"/>
+
+      <!-- 双腿 -->
+      <g class="leg-a">
+        <path d="M415 478 L402 512 L414 540" fill="none" stroke="#f2a03d"
+              stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M414 540 L438 546" fill="none" stroke="#f2a03d"
+              stroke-width="7" stroke-linecap="round"/>
+      </g>
+      <g class="leg-b">
+        <path d="M462 478 L472 512 L462 540" fill="none" stroke="#e08f2e"
+              stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M462 540 L484 546" fill="none" stroke="#e08f2e"
+              stroke-width="7" stroke-linecap="round"/>
+      </g>
+
+      <!-- 身体 -->
+      <ellipse cx="420" cy="430" rx="102" ry="58" fill="#fbfbf7"
+               stroke="#d5d5cc" stroke-width="2"/>
+      <!-- 翅膀 -->
+      <path d="M372 408 q62 -20 124 4 q-30 44 -114 32 z"
+            fill="#ececE4" stroke="#d5d5cc" stroke-width="2"/>
+
+      <!-- 脖子 -->
+      <path d="M492 404 q36 -20 42 -56" fill="none" stroke="#fbfbf7"
+            stroke-width="30" stroke-linecap="round"/>
+      <!-- 头 -->
+      <circle cx="534" cy="344" r="26" fill="#fbfbf7" stroke="#d5d5cc" stroke-width="2"/>
+      <!-- 喙 + 喉囊 -->
+      <path d="M554 334 L628 348 L554 356 Z" fill="#f6c453" stroke="#d9a63a"
+            stroke-width="2" stroke-linejoin="round"/>
+      <path d="M556 352 q32 24 66 2 q-30 6 -66 -2 z" fill="#eaa93a"/>
+      <circle cx="541" cy="336" r="4" fill="#222"/>
+    </g>
+
+    <!-- ========== 奶牛（坐在鹈鹕背上） ========== -->
+    <g id="cow">
+      <!-- 尾巴 -->
+      <path d="M322 342 q-24 8 -20 36" fill="none" stroke="#a9743f"
+            stroke-width="6" stroke-linecap="round"/>
+      <!-- 身体 -->
+      <ellipse cx="392" cy="348" rx="80" ry="46" fill="#e3b04b"
+               stroke="#c08f30" stroke-width="2"/>
+      <!-- 花斑 -->
+      <ellipse cx="358" cy="330" rx="18" ry="12" fill="#fdf6e3" opacity=".92"/>
+      <ellipse cx="412" cy="364" rx="16" ry="10" fill="#fdf6e3" opacity=".92"/>
+      <!-- 收起的腿 -->
+      <path d="M340 386 q-4 12 10 12 q14 0 12 -12" fill="#d8a23f" stroke="#c08f30"/>
+      <path d="M440 384 q-4 12 10 12 q14 0 12 -12" fill="#d8a23f" stroke="#c08f30"/>
+      <!-- 乳房 -->
+      <ellipse cx="414" cy="392" rx="20" ry="12" fill="#f4a6b8"/>
+      <!-- 头 -->
+      <ellipse cx="470" cy="330" rx="32" ry="27" fill="#e3b04b"
+               stroke="#c08f30" stroke-width="2"/>
+      <ellipse cx="498" cy="342" rx="16" ry="12" fill="#f6d7b0" stroke="#c08f30" stroke-width="2"/>
+      <circle cx="492" cy="339" r="2.5" fill="#8a5a2b"/>
+      <circle cx="478" cy="322" r="4" fill="#222"/>
+      <!-- 耳朵 / 角 -->
+      <ellipse cx="448" cy="310" rx="12" ry="7" fill="#d8a23f" transform="rotate(-25 448 310)"/>
+      <path d="M456 306 q6 -14 17 -16" fill="none" stroke="#f3e6c8"
+            stroke-width="6" stroke-linecap="round"/>
+    </g>
+
+    <!-- ========== 自行车（架在奶牛背上） ========== -->
+    <g id="bike">
+      <!-- 后轮 -->
+      <g class="wheel" id="wheel-rear">
+        <circle cx="350" cy="260" r="30" fill="none" stroke="#2f2f2f" stroke-width="5"/>
+        <g stroke="#7a7a7a" stroke-width="2">
+          <line x1="320" y1="260" x2="380" y2="260"/>
+          <line x1="350" y1="230" x2="350" y2="290"/>
+          <line x1="329" y1="239" x2="371" y2="281"/>
+          <line x1="371" y1="239" x2="329" y2="281"/>
+        </g>
+        <circle cx="350" cy="260" r="5" fill="#2f2f2f"/>
+      </g>
+      <!-- 前轮 -->
+      <g class="wheel" id="wheel-front">
+        <circle cx="455" cy="260" r="30" fill="none" stroke="#2f2f2f" stroke-width="5"/>
+        <g stroke="#7a7a7a" stroke-width="2">
+          <line x1="425" y1="260" x2="485" y2="260"/>
+          <line x1="455" y1="230" x2="455" y2="290"/>
+          <line x1="434" y1="239" x2="476" y2="281"/>
+          <line x1="476" y1="239" x2="434" y2="281"/>
+        </g>
+        <circle cx="455" cy="260" r="5" fill="#2f2f2f"/>
+      </g>
+
+      <!-- 车架 -->
+      <g stroke="#c0392b" stroke-width="7" fill="none" stroke-linecap="round">
+        <line x1="350" y1="260" x2="394" y2="216"/>
+        <line x1="394" y1="216" x2="438" y2="204"/>
+        <line x1="438" y1="204" x2="455" y2="260"/>
+        <line x1="350" y1="260" x2="402" y2="258"/>
+        <line x1="402" y1="258" x2="438" y2="204"/>
+        <line x1="402" y1="258" x2="394" y2="216"/>
+      </g>
+
+      <!-- 座垫 -->
+      <ellipse cx="392" cy="212" rx="17" ry="6" fill="#2b2b2b"/>
+      <!-- 车把 -->
+      <path d="M438 204 q10 -12 18 -14" fill="none" stroke="#2b2b2b"
+            stroke-width="5" stroke-linecap="round"/>
+      <line x1="452" y1="190" x2="470" y2="194" stroke="#2b2b2b"
+            stroke-width="5" stroke-linecap="round"/>
+      <!-- 曲柄踏板 -->
+      <line x1="402" y1="258" x2="394" y2="272" stroke="#444" stroke-width="4" stroke-linecap="round"/>
+      <line x1="386" y1="274" x2="402" y2="274" stroke="#444" stroke-width="5" stroke-linecap="round"/>
+    </g>
+
+    <!-- ========== 秦始皇（骑在自行车上） ========== -->
+    <g id="emperor">
+      <!-- 腿 -->
+      <path d="M392 216 L404 246 L396 274" fill="none" stroke="#3b2f28"
+            stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- 朝袍 -->
+      <path d="M376 224 q-16 -36 6 -56 q18 -18 40 -8 q22 10 22 38 q0 22 -10 36 q-32 12 -58 -10 z"
+            fill="#2f3f74" stroke="#1e2a52" stroke-width="2"/>
+      <!-- 袍边金纹 -->
+      <path d="M382 214 q26 14 54 -6" fill="none" stroke="#e8c46a"
+            stroke-width="3" stroke-linecap="round"/>
+      <path d="M388 176 q28 -12 48 8" fill="none" stroke="#e8c46a"
+            stroke-width="2" opacity=".8"/>
+      <!-- 手臂 -->
+      <path d="M434 172 q22 8 30 22" fill="none" stroke="#f2c79c"
+            stroke-width="9" stroke-linecap="round"/>
+      <path d="M424 168 q18 2 28 12" fill="none" stroke="#2f3f74"
+            stroke-width="11" stroke-linecap="round" opacity=".95"/>
+      <!-- 头 -->
+      <circle cx="412" cy="150" r="19" fill="#f2c79c" stroke="#d9a97a" stroke-width="1.5"/>
+      <!-- 发 / 胡须 -->
+      <path d="M404 164 q-2 24 10 30 q12 -8 12 -32 z" fill="#1b1b1b"/>
+      <path d="M395 140 q17 -16 34 -2" fill="none" stroke="#1b1b1b"
+            stroke-width="6" stroke-linecap="round"/>
+      <!-- 眼睛 -->
+      <circle cx="407" cy="147" r="2.4" fill="#1b1b1b"/>
+      <circle cx="420" cy="147" r="2.4" fill="#1b1b1b"/>
+      <!-- 冕冠 -->
+      <rect x="386" y="118" width="52" height="7" rx="3" fill="#141414"/>
+      <rect x="400" y="124" width="24" height="13" fill="#141414"/>
+      <rect x="404" y="112" width="16" height="7" rx="2" fill="#c9a227"/>
+      <!-- 袖摆飘动感 -->
+      <path d="M370 190 q-16 18 -10 40 q14 -8 22 -22 z" fill="#3a4c88" opacity=".9"/>
+    </g>
+
+    <!-- 扬尘 -->
+    <circle class="dust" cx="360" cy="534" r="16" fill="#e9dfc8" opacity=".6"/>
+    <circle class="dust" cx="392" cy="538" r="12" fill="#e9dfc8" opacity=".5"
+            style="animation-delay:-.35s"/>
+  </g>
+</svg>
+</body>
+</html>
